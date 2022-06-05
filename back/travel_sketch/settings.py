@@ -31,15 +31,36 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # app
+    'accounts',
+    'articles',
+    
+    #thirdparty
+    'imagekit',
+    'rest_framework',
+    'rest_framework.authtoken',
+    # DRF auth
+    'dj_rest_auth',
+    'dj_rest_auth.registration',
+    # signup 담당을 위해 필요 
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    #cors setting
+    "corsheaders",
+    #django 
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 ]
 
+SITE_ID = 1 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -48,6 +69,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
 
 ROOT_URLCONF = 'travel_sketch.urls'
 
@@ -103,9 +125,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-kr'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/seoul'
 
 USE_I18N = True
 
@@ -131,3 +153,37 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.User'
+
+
+
+
+
+# CORS_ALLOWED_ORIGINS = [
+#     # vue local host
+#     'http://localhost:8080',
+# ]
+
+# 모두에게 교차출처 허용 (*)
+CORS_ALLOW_ALL_ORIGINS = True
+
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        # 모두에게 허용
+        'rest_framework.permissions.AllowAny',
+
+        # login required //login signup제외한 모든! //비인증시 401
+        # 'rest_framework.permissions.IsAuthenticated',
+        
+	]   
+}
+
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'REGISTER_SERIALIZER': 'accounts.serializers.CustomRegisterSerializer',
+}
+
+ACCOUNT_ADAPTER = 'accounts.adapters.CustomAccountAdapter'

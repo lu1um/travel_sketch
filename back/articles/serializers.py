@@ -33,14 +33,28 @@ class ArticleSerializer(serializers.ModelSerializer):
     class TagSerializer(serializers.ModelSerializer):
         class Meta:
             model = Tag
-            fidles = '__all__'
+            fields = '__all__'
 
     user = UserSerializer(read_only=True)
-    like_users = UserSerializer(read_only=True)
+    like_users = UserSerializer(read_only=True, many=True)
     region = RegionSerializer(many=True)
     tag = TagSerializer(many=True)
     comments = CommentSerializer(many=True, read_only=True)
 
     class Meta:
         model = Article
+        fields = '__all__'
+
+
+class NewsSerializer(serializers.ModelSerializer):
+
+    class RegionSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = Region
+            fields = '__all__'
+
+    region = RegionSerializer(many=True)
+
+    class Meta:
+        model = News
         fields = '__all__'

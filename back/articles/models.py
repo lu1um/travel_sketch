@@ -4,26 +4,19 @@ from imagekit.models import ProcessedImageField
 from imagekit.processors import Thumbnail
 
 
-class tag(models.Model):
+class Tag(models.Model):
     name = models.CharField(max_length=100)
-    thumbnail = ProcessedImageField(
-        blank=True,
-        upload_to='tag/',
-        processors=[Thumbnail(200, 200)],
-        format='JPEG',
-        options={'quality': 60},
-    )
 
 
-class region(models.Model):
+class Region(models.Model):
     name = models.CharField(max_length=100)
 
 
 class Article(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='articles')
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_articles', blank=True)
-    region = models.ManyToManyField(region)
-    tag = models.ManyToManyField(tag, related_name='articles', blank=True)
+    region = models.ManyToManyField(Region)
+    tag = models.ManyToManyField(Tag, related_name='articles', blank=True)
     type = models.IntegerField()
     title = models.CharField(max_length=100)
     thumbnail = ProcessedImageField(
@@ -40,7 +33,7 @@ class Article(models.Model):
     viewcount = models.IntegerField()
 
 
-class comment(models.Model):
+class Comment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='comments')
     article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='comments')
     content = models.CharField(max_length=200)
@@ -48,8 +41,8 @@ class comment(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 
-class news(models.Model):
-    region = models.ManyToManyField(region, related_name='regions', blank=True)
+class News(models.Model):
+    region = models.ManyToManyField(Region, related_name='news', blank=True)
     title = models.CharField(max_length=100)
     originallink = models.URLField()
     link = models.URLField()

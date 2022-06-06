@@ -33,7 +33,7 @@ class Article(models.Model):
         format='JPEG',
         options={'quality': 60},
     )
-    content = models.CharField()
+    content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     travel_date = models.DateTimeField()

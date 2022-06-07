@@ -1,14 +1,24 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
+    <nav-bar></nav-bar>
     <router-view/>
   </div>
 </template>
 
+
+<script>
+import NavBar from '@/components/NavBar.vue'
+export default{
+  name:'App',
+  components:{NavBar},
+}
+</script>
+
 <style>
+:root{
+  --main-color: #0D3E69;
+  /* background-color: var(--black-color); */
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

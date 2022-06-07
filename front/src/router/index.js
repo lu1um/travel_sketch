@@ -6,6 +6,7 @@ import LogoutView from '../views/LogoutView.vue'
 import SignupView from '../views/SignupView.vue'
 import ProfileView from '../views/ProfileView.vue'
 import ArticleNewView from '../views/ArticleNewView.vue'
+import NewsNewView from '../views/NewsNewView.vue'
 
 Vue.use(VueRouter)
 
@@ -39,7 +40,12 @@ const routes = [
     path: '/article/new',
     name: 'newArticle',
     component: ArticleNewView
-  }
+  },
+  {
+    path: '/admin/newsedit',
+    name: 'newNews',
+    component: NewsNewView
+  },
 ]
 
 const router = new VueRouter({

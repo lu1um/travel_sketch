@@ -1,7 +1,6 @@
-
-
 export default {
   state: {
+    // getnewsregion
   },
   getters: {
   },
